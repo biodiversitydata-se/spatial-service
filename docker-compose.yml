@@ -1,0 +1,28 @@
+version: '3.7'
+
+services:
+
+  pgsql:
+    image: postgis/postgis:13-3.4
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_HOST_AUTH_METHOD: md5
+      TZ: Europe/Stockholm
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data_spatial-service:/var/lib/postgresql/data
+      - ./docker/env/postgis/layersdb.sql:/docker-entrypoint-initdb.d/layersdb.sql
+
+  spatial-service:
+    image: sbdi/spatial-service-dev
+    build:
+      context: .
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./sbdi/data/config/spatial-service-config.yml:/data/spatial-service/config/spatial-service-config.yml
+
+volumes:
+  db_data_spatial-service:

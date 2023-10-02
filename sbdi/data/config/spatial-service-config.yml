@@ -58,6 +58,7 @@ retryTime: 30000
 #  NOTE: Some of these will be ignored if default_config exists
 security:
   cas:
+    appServerName: http://localhost:8080
     casServerName: https://auth.biodiversitydata.se
     casServerUrlPrefix: https://auth.biodiversitydata.se/cas
     loginUrl: https://auth.biodiversitydata.se/cas/login
