@@ -24,6 +24,8 @@ CREATE EXTENSION postgis;
 -- Enable Topology
 CREATE EXTENSION postgis_topology;
 
+\connect layersdb layers;
+
 CREATE TYPE searchobjectstype AS (
     pid character varying,
     id character varying,
