@@ -28,7 +28,9 @@ class LoginInterceptor {
     }
 
     boolean before() {
-        if (!grailsApplication.config.security.oidc.enabled.toBoolean()) {
+        // SBDI: we're still using cas
+        if (!grailsApplication.config.security.oidc.enabled.toBoolean() &&
+                !grailsApplication.config.security.cas.enabled.toBoolean()) {
             return true
         }
 
@@ -104,7 +106,14 @@ class LoginInterceptor {
         log.debug("Access denied : " + controllerName + "->" + actionName ?: "index")
 
         if (!request.getHeader("accept")?.toLowerCase().contains("application/json")) {
-            redirect(absolute: false, uri: authService.loginUrl(request))
+            // SBDI: the original code creates a return url without host name which doesn't work.
+            // Probably due to cas/oidc incompatibility.
+            // Code partly copied from au.org.ala.web.AuthService.
+            def requestPath = request.forwardURI ? ((request.forwardURI.startsWith('/') ? '' : '/') + request.forwardURI) : ''
+            def requestQuery = request.queryString ? (request.queryString.startsWith('?') ? '' : '?') + request.queryString : ''
+            def returnUrl = "${grailsApplication.config.security.cas.appServerName}${requestPath}${requestQuery}"
+
+            redirect(absolute: false, uri: authService.loginUrl(returnUrl))
 
             return false
         } else {
