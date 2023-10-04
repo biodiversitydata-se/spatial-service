@@ -192,10 +192,6 @@ grails.controllers.upload.maxRequestSize: 2097152000
 google:
   apikey: "AIzaSyAJDtEeoy7Sc9pij2TAoVnmTwA34Q-2VHk"
 
-logging:
-  level:
-    root: INFO
-
 userdetails:
     baseUrl: "https://auth.biodiversitydata.se/userdetails"
 

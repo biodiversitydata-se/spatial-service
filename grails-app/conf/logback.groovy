@@ -11,23 +11,24 @@ appender('STDOUT', ConsoleAppender) {
     encoder(PatternLayoutEncoder) {
         charset = Charset.forName('UTF-8')
         pattern =
-                '[SPATIAL-SERVICE] %clr(%d{HH:mm:ss}){faint} ' + // Date
+                '[SPATIAL-SERVICE] %clr(%d{yyyy-MM-dd HH:mm:ss}){faint} ' + // Date
+                        '[%p] ' + // LogLevel
                         '%clr(%logger{5}){cyan} %clr(:){faint} ' + // Logger
                         '%m%n%wex' // Message
     }
 }
 if (Environment.isDevelopmentMode()) {
     logger("au.org.ala.spatial.service.MonitorService", INFO, ['STDOUT'], false)
-    logger("au.org.ala.layers", DEBUG, ['STDOUT'], false)
-    logger("au.org.ala.spatial", DEBUG, ['STDOUT'], false)
+    logger("au.org.ala.layers", INFO, ['STDOUT'], false)
+    logger("au.org.ala.spatial", INFO, ['STDOUT'], false)
     logger("org.hibernate", ERROR, ['STDOUT'], false)
-    logger("au.org.ala",DEBUG, ['STDOUT'],false)
+    logger("au.org.ala",INFO, ['STDOUT'],false)
 } else {
     logger("au.org.ala.spatial.service.MonitorService", INFO, ['STDOUT'], false)
     logger("au.org.ala.layers", INFO, ['STDOUT'], false)
     logger("au.org.ala.spatial", INFO, ['STDOUT'], false)
-    logger("au.org.ala", DEBUG, ['STDOUT'],false)
+    logger("au.org.ala", INFO, ['STDOUT'],false)
 }
 
 
-root(ERROR, ['STDOUT'])
+root(WARN, ['STDOUT'])
