@@ -146,7 +146,8 @@
                             }
                         }
 
-                        var map = L.map('map').setView([-22, 122], 4);
+                        // SBDI: center map on Sweden
+                        var map = L.map('map').setView([62, 16], 4);
 
                         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
