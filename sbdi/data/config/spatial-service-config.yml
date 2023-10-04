@@ -4,7 +4,8 @@
 data:
   dir: '/data/spatial-data'
 geoserver:
-  url: 'https://spatial.biodiversitydata.se/geoserver'
+  url: 'http://localhost:8079/geoserver'
+  #url: 'https://spatial.biodiversitydata.se/geoserver'
   username: 'admin'
   password: 'geoserver'
   canDeploy: true

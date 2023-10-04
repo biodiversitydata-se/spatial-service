@@ -11,11 +11,13 @@ mats@xps-13:/data/spatial-service$ tree
     └── spatial-service-config.yml -> /home/mats/src/biodiversitydata-se/spatial-service/sbdi/data/config/spatial-service-config.yml
 ```
 
-You'll also need to create a directory named `/data/spatial-data`. 
-
+You'll also need to create the directories `/data/spatial-data` and `/data/geoserver_data_dir`. 
 
 ### Database
 An empty database will be created the first time the application starts. You can then export the database from production and import it.
+
+### GeoServer
+By default the development configuration will use a local GeoServer running at http://localhost:8079/geoserver. Alternatively you can use the production GeoServer (for read-only). Change `geoserver.url` to https://spatial.biodiversitydata.se/geoserver.
 
 ## Usage
 Run locally:
