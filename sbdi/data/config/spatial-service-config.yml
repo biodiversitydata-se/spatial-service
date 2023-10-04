@@ -193,8 +193,8 @@ google:
   apikey: "AIzaSyAJDtEeoy7Sc9pij2TAoVnmTwA34Q-2VHk"
 
 userdetails:
-    baseUrl: "https://auth.biodiversitydata.se/userdetails"
+    baseUrl: "https://auth.biodiversitydata.se/userdetails/"
 
 # ala-auth-plugin conf
 userDetails:
-    url: "https://auth.biodiversitydata.se/userdetails"
+    url: "https://auth.biodiversitydata.se/userdetails/"
