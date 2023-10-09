@@ -3,7 +3,7 @@ version: '3.7'
 services:
 
   geoserver:
-    image: ghcr.io/biodiversitydata-se/geoserver:1.0.0
+    image: ghcr.io/biodiversitydata-se/geoserver:1.0.1
     #image: sbdi/geoserver-dev
     #build:
     #  context: ../geoserver
