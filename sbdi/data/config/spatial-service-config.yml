@@ -64,6 +64,7 @@ security:
     casServerUrlPrefix: https://auth.biodiversitydata.se/cas
     loginUrl: https://auth.biodiversitydata.se/cas/login
     logoutUrl: https://auth.biodiversitydata.se/cas/logout
+    contextPath: '/ws'
     enabled: true
     bypass: false
     disableCAS: false
@@ -102,10 +103,10 @@ spatialHubUrl: https://spatial.biodiversitydata.se
 gazField: ""
 userObjectsField: ""
 
-#apiKeyCheckUrlTemplate: "https://auth.ala.org.au/apikey/ws/check?apikey={0}"
+apiKeyCheckUrlTemplate: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
 spatialService.remote: ""
 
-journalmap.api_key:
+journalmap.api_key: ""
 journalmap.url: https://www.journalmap.org/
 
 # For side by side installation with layers-service, analysis-service
@@ -172,6 +173,7 @@ distributions.geoserver.image.url: "/ALA/wms?service=WMS&version=1.1.0&request=G
 
 dataSource:
     url: 'jdbc:postgresql://localhost/layersdb'
+    #url: 'jdbc:postgresql://postgis/layersdb'
     username: layers
     password: layers
 
