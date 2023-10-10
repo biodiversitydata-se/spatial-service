@@ -27,6 +27,7 @@ if (Environment.isDevelopmentMode()) {
     logger("au.org.ala.spatial.service.MonitorService", INFO, ['STDOUT'], false)
     logger("au.org.ala.layers", INFO, ['STDOUT'], false)
     logger("au.org.ala.spatial", INFO, ['STDOUT'], false)
+    logger("org.hibernate", ERROR, ['STDOUT'], false)
     logger("au.org.ala", INFO, ['STDOUT'],false)
 }
 
