@@ -148,7 +148,7 @@ class ServiceAuthService {
         //Last try
         apikey = request.JSON?.api_key
 
-        log.info("apiKey: " + apikey)
+        log.debug("apiKey: " + apikey)
         apikey
     }
 }
