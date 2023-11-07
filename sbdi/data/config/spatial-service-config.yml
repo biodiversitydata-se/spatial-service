@@ -200,3 +200,9 @@ userdetails:
 # ala-auth-plugin conf
 userDetails:
     url: "https://auth.biodiversitydata.se/userdetails/"
+
+openapi:
+  terms: https://docs.biodiversitydata.se/sbdi-data/sbdi-atlas-terms-of-use/
+  contact:
+    name:
+    email:
