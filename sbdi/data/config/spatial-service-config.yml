@@ -1,3 +1,5 @@
+server.port: 8081
+
 #
 # au.org.ala.spatial.service config
 #
@@ -33,7 +35,7 @@ batch_sampling_fields_limit: 1000
 #
 # au.org.ala.spatial.slave config
 #
-spatialService.url: "http://localhost:8080/ws"
+spatialService.url: "http://localhost:8081/ws"
 shp2pgsql.path: "/usr/bin/shp2pgsql"
 gdal.dir: "/usr/bin/"
 gdm.dir: "/data/spatial-data/modelling/gdm/DoGdm"
@@ -59,13 +61,13 @@ retryTime: 30000
 #  NOTE: Some of these will be ignored if default_config exists
 security:
   cas:
-    appServerName: http://localhost:8080
+    appServerName: http://localhost:8081
     casServerName: https://auth.biodiversitydata.se
     casServerUrlPrefix: https://auth.biodiversitydata.se/cas
     loginUrl: https://auth.biodiversitydata.se/cas/login
     logoutUrl: https://auth.biodiversitydata.se/cas/logout
     contextPath: '/ws'
-    enabled: true
+    enabled: false
     bypass: false
     disableCAS: false
     gateway: false
@@ -73,7 +75,10 @@ security:
     check:
       serviceUrl:  https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}
   oidc:
-    enabled: false
+    enabled: true
+    clientId: replace_with_real_value
+    secret: replace_with_real_value
+    discoveryUri: https://auth.biodiversitydata.se/cas/oidc/.well-known
   jwt:
     enabled: false
 
@@ -177,7 +182,7 @@ dataSource:
     username: layers
     password: layers
 
-grails.serverURL: http://localhost:8080/ws
+grails.serverURL: http://localhost:8081/ws
 grails.app.context: /ws
 
 skin.layout: main
@@ -206,3 +211,7 @@ openapi:
   contact:
     name:
     email:
+  components:
+    security:
+      oauth2:
+        baseUrl: https://auth.biodiversitydata.se/cas/oidc
