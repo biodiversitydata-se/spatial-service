@@ -56,9 +56,7 @@ class ServiceAuthService {
      */
     boolean isAdmin(params) {
         // login disabled
-        // SBDI: we're still using cas
-        if (!grailsApplication.config.security.oidc.enabled.toBoolean() &&
-                !grailsApplication.config.security.cas.enabled.toBoolean()) {
+        if (!grailsApplication.config.security.oidc.enabled.toBoolean()) {
             return true
         }
 
