@@ -5,9 +5,10 @@
     <meta name="layout" content="ala-main"/>
     <link rel="stylesheet" href="${resource(dir: 'css', file: 'fluid.css')}" type="text/css">
 </head>
+
 <body class="fluid">
 <ul class="breadcrumb">
-    <li><g:link controller="main" action="index">Home</g:link></li>
+    <li><g:link uri="index">Home</g:link></li>
     <br/>
     <li><g:link controller="manageLayers" action="layers">Layers</g:link></li>
     <li><g:link controller="manageLayers" action="uploads">Uploads</g:link></li>
@@ -21,6 +22,5 @@
     <br/>
 </g:if>
 
-</div>
 </body>
 </html>

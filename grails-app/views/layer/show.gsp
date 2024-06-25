@@ -2,14 +2,17 @@
 <html>
 <head>
     <title>${layer.displayname}</title>
+    <g:set var="baseUrl" value="${request.scheme}://${request.serverName}:${request.serverPort}${request.contextPath}" />
     <meta name="breadcrumbs"
-          content="${g.createLink(controller: 'main', action: 'index')}, Spatial Service \\ ${g.createLink(controller: 'layer', action: 'list')}, Layers"/>
+          content="${g.createLink(uri: baseUrl)}, Spatial Service \\ ${g.createLink(controller: 'layer', action: 'list')}, Layers"/>
     <meta name="layout" content="ala-main"/>
 </head>
 
 <body>
-
+<g:set var="spatialConfig" bean="spatialConfig"/>
 <h1>${layer.displayname}</h1>
+<br/>
+<h2>${field?.name}</h2>
 
 <div>
     <table class="table table-bordered table-condensed">
@@ -94,7 +97,7 @@
             <td>Classification</td>
             <td>
                 <g:if test="${layer.classification1 || layer.classification2}">
-                ${layer.classification1 + ' => ' + layer.classification2}
+                    ${layer.classification1 + ' => ' + layer.classification2}
                 </g:if>
             </td>
         </tr>
@@ -117,7 +120,7 @@
         <tr>
             <td>More information</td>
             <td>
-                <g:each var="u" in="${layer.metadatapath.split('\\|')}">
+                <g:each var="u" in="${layer.metadatapath?.split('\\|')}">
                     <a href="${u}">${u}</a><br/>
                 </g:each>
             </td>
@@ -125,7 +128,8 @@
         <g:if test="${downloadAllowed}">
             <tr>
                 <td>Download</td>
-                <td><a class="btn btn-default" href="${grailsApplication.config.grails.serverURL}/layer/download/${URLEncoder.encode(layer.displayname)}.zip">
+                <td><a class="btn btn-default"
+                       href="${spatialConfig.grails.serverURL}/layer/download/${URLEncoder.encode(layer.displayname)}.zip">
                     <i class="glyphicon glyphicon-download"></i>
                     ${layer.displayname}.zip</a>
                 </td>
@@ -133,7 +137,7 @@
         </g:if>
         <tr>
             <td>View in spatial portal</td>
-            <td><a href="${grailsApplication.config.spatialHubUrl}?layers=${layer.name}">Click to view this layer</a></td>
+            <td><a href="${spatialConfig.spatialHubUrl}?layers=${layer.name}">Click to view this layer</a></td>
         </tr>
         </tbody>
     </table>
