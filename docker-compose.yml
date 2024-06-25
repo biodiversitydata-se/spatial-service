@@ -1,5 +1,3 @@
-version: '3.7'
-
 services:
 
   geoserver:
@@ -7,10 +5,10 @@ services:
     #image: sbdi/geoserver-dev
     #build:
     #  context: ../geoserver
+    env_file: ./docker/.env
     environment:
       JAVA_OPTS: -Xmx2g -Xms128m -Xss512k -Djava.awt.headless=true
       TZ: Europe/Stockholm
-    env_file: ./docker/env/geoserver/.envgeoserver
     volumes:
       - /data/geoserver_data_dir:/data/geoserver_data_dir
       - /data/spatial-data:/data/spatial-data
@@ -19,16 +17,15 @@ services:
 
   postgis:
     image: postgis/postgis:13-3.4
+    env_file: ./docker/.env
     environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
       POSTGRES_HOST_AUTH_METHOD: md5
       TZ: Europe/Stockholm
     ports:
       - "5432:5432"
     volumes:
       - db_data_spatial-service:/var/lib/postgresql/data
-      - ./docker/env/postgis/layersdb.sql:/docker-entrypoint-initdb.d/layersdb.sql
+      - ./docker/postgres/init_layersdb.sql:/docker-entrypoint-initdb.d/init_layersdb.sql
 
   spatial-service:
     image: sbdi/spatial-service-dev
