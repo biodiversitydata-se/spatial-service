@@ -14,7 +14,7 @@ geoserver:
 # To use a remote geoserver instance, set geoserver.remote.geoserver_data_dir to the geoserver_data_dir path on the
 # remote server. This will cause layer files to be copied to geoserver_data_dir/data/
 #  remote:
-  geoserver_data_dir: "/data/geoserver_data_dir"
+#    geoserver_data_dir: "/data/geoserver_data_dir"
 
 shpResolutions: [0.5, 0.25, 0.1, 0.05]
 grdResolutions: [0.5, 0.25, 0.1, 0.05, 0.01]
@@ -50,38 +50,12 @@ sampling.threads: 4
 slaveKey: ""
 serviceKey: ""
 
+api_key:
+
 # time between pushing status updates to the master for a task
 statusTime: 3000
 retryCount: 10
 retryTime: 30000
-
-#
-#  CAS SETTINGS
-#
-#  NOTE: Some of these will be ignored if default_config exists
-security:
-  cas:
-    appServerName: http://localhost:8081
-    casServerName: https://auth.biodiversitydata.se
-    casServerUrlPrefix: https://auth.biodiversitydata.se/cas
-    loginUrl: https://auth.biodiversitydata.se/cas/login
-    logoutUrl: https://auth.biodiversitydata.se/cas/logout
-    contextPath: '/ws'
-    enabled: false
-    bypass: false
-    disableCAS: false
-    gateway: false
-  apikey:
-    check:
-      serviceUrl:  https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}
-  oidc:
-    enabled: true
-    clientId: replace_with_real_value
-    secret: replace_with_real_value
-    discoveryUri: https://auth.biodiversitydata.se/cas/oidc/.well-known
-  jwt:
-    enabled: false
-
 
 auth.admin_role: ROLE_ADMIN
 app.http.header.userId: X-ALA-userId
@@ -96,8 +70,9 @@ bie.searchPath: '/search'
 
 records.url: https://archives.ala.org.au/archives/exports/lat_lon_taxon.zip
 
-api_key:
 lists.url: https://lists.biodiversitydata.se
+lists.useListWs: false
+
 collections.url: https://collections.biodiversitydata.se
 sandboxHubUrl:
 sandboxBiocacheServiceUrl:
@@ -108,7 +83,7 @@ spatialHubUrl: https://spatial.biodiversitydata.se
 gazField: ""
 userObjectsField: ""
 
-apiKeyCheckUrlTemplate: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
+#apiKeyCheckUrlTemplate: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
 spatialService.remote: ""
 
 journalmap.api_key: ""
@@ -174,7 +149,7 @@ layers_store.LOCAL_SAMPLING: true
 layers_store.GEONETWORK_URL: 'https://spatial.biodiversitydata.se/geonetwork'
 
 distributions.cache.dir: "/data/spatial-service/mapCache/"
-distributions.geoserver.image.url: "/ALA/wms?service=WMS&version=1.1.0&request=GetMap&sld=https://fish.ala.org.au/data/dist.sld&layers=ALA:aus1,ALA:Distributions&styles=&bbox=109,-47,157,-7&srs=EPSG:4326&format=image/png&width=400&height=400&viewparams=s:"
+distributions.geoserver.image.url: "/ALA/wms?service=WMS&version=1.1.0&request=GetMap&layers=ALA:aus1,ALA:Distributions&styles=&bbox=109,-47,157,-7&srs=EPSG:4326&format=image/png&width=400&height=400&viewparams=s:"
 
 dataSource:
     url: 'jdbc:postgresql://localhost/layersdb'
@@ -199,12 +174,87 @@ grails.controllers.upload.maxRequestSize: 2097152000
 google:
   apikey: "AIzaSyAJDtEeoy7Sc9pij2TAoVnmTwA34Q-2VHk"
 
-userdetails:
-    baseUrl: "https://auth.biodiversitydata.se/userdetails/"
+logging:
+  level:
+    root: INFO
 
-# ala-auth-plugin conf
-userDetails:
+#userdetails:
+#    baseUrl: "https://auth.biodiversitydata.se/userdetails/"
+#
+## ala-auth-plugin conf
+#userDetails:
+#    url: "https://auth.biodiversitydata.se/userdetails/"
+
+userdetails:
+  web:
     url: "https://auth.biodiversitydata.se/userdetails/"
+  api:
+    url: "https://auth.biodiversitydata.se/userdetails/"
+
+#
+#  CAS SETTINGS
+#
+#  NOTE: Some of these will be ignored if default_config exists
+security:
+  cas:
+    appServerName: http://localhost:8081
+    casServerName: https://auth.biodiversitydata.se
+    casServerUrlPrefix: https://auth.biodiversitydata.se/cas
+    loginUrl: https://auth.biodiversitydata.se/cas/login
+    logoutUrl: https://auth.biodiversitydata.se/cas/logout
+    contextPath: '/ws'
+    enabled: false
+    bypass: false
+    disableCAS: false
+    gateway: false
+  apikey:
+    check:
+      serviceUrl: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
+
+  oidc:
+    enabled: true
+    discoveryUri: https://auth.biodiversitydata.se/cas/oidc/.well-known
+    clientId: replace_with_real_value
+    secret: replace_with_real_value
+    allowUnsignedIdTokens: true
+    scope: 'openid profile email ala/attrs ala/roles'
+    roleAttribute: ala:role
+    logoutAction:
+    alaUseridClaim: username
+    logoutUrl:
+  jwt:
+    enabled: false
+    #discoveryUri:
+    fallbackToLegacyBehaviour: true
+    #clientId:
+    #roleAttributes: cognito:groups
+    #rolesFromAccessToken: true
+    #userIdClaim: username
+    #roleClaims: cognito:groups
+  cors:
+    enable: true
+    authenticated:
+      allowedOrigins:
+        - '.*\.biodiversitydata\.se(:[0-9]+)?'
+    unauthenticated:
+      allowedOrigins:
+        - '*'
+      allowCredentials: false
+  core:
+    authCookieName: ALA-Auth
+  cookie:
+    enabled: false
+    domain: '.biodiversitydata.se'
+
+# ApiKey Authoenticator failed while webservice.jwt is supplied
+webservice:
+  jwt: false
+#  jwt-scopes: ala/attrs ala/internal users/read
+#  clientId:
+#  secret:
+
+#used for spatial-service only
+apiKeyCheckUrlTemplate: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
 
 openapi:
   terms: https://docs.biodiversitydata.se/sbdi-data/sbdi-atlas-terms-of-use/
@@ -215,3 +265,5 @@ openapi:
     security:
       oauth2:
         baseUrl: https://auth.biodiversitydata.se/cas/oidc
+
+namematching.url: https://namematching.biodiversitydata.se
