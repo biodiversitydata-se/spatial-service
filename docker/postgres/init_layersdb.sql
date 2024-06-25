@@ -23,9 +23,9 @@ SET default_with_oids = false;
 -- \connect ${POSTGRES_DB} ;
 
 -- Enable PostGIS (includes raster)
-CREATE EXTENSION postgis;
+--CREATE EXTENSION postgis;
 -- Enable Topology
-CREATE EXTENSION postgis_topology;
+--CREATE EXTENSION postgis_topology;
 
 CREATE TYPE searchobjectstype AS
 (
