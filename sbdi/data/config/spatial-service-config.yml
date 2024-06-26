@@ -81,7 +81,7 @@ phyloServiceUrl:
 spatialHubUrl: https://spatial.biodiversitydata.se
 
 gazField: ""
-userObjectsField: ""
+userObjectsField: cl1083
 
 #apiKeyCheckUrlTemplate: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
 spatialService.remote: ""
