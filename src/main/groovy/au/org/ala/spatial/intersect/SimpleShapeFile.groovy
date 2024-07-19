@@ -1208,7 +1208,7 @@ class CPG implements Serializable {
             String cpg = Files.readAllLines(Paths.get(filename)).get(0)
             charset = Charset.forName(cpg)
         } catch (Exception e) {
-            log.debug("loading cpg issue, assuming default ISO-8859-1 encoding: " + filename + ": " + e.toString(), e)
+            log.debug("loading cpg issue, assuming default ISO-8859-1 encoding: " + filename + ": " + e.toString())
         }
     }
 
