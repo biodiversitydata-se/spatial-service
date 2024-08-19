@@ -16,6 +16,7 @@ package au.org.ala.spatial
 
 
 import au.org.ala.spatial.dto.IntersectionFile
+import grails.gorm.transactions.Transactional
 import groovy.sql.Sql
 import org.codehaus.jackson.map.DeserializationConfig
 import org.codehaus.jackson.map.ObjectMapper
@@ -23,6 +24,7 @@ import org.postgresql.core.Field
 
 import java.sql.ResultSet
 
+@Transactional
 class FieldService {
 
     LayerService layerService
