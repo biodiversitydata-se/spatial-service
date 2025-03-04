@@ -1,7 +1,7 @@
 services:
 
   geoserver:
-    image: ghcr.io/biodiversitydata-se/geoserver:1.0.1
+    image: ghcr.io/biodiversitydata-se/geoserver:1.1.0
     #image: sbdi/geoserver-dev
     #build:
     #  context: ../geoserver
@@ -16,7 +16,7 @@ services:
       - "8079:8080"
 
   postgis:
-    image: postgis/postgis:13-3.4
+    image: postgis/postgis:16-3.5
     env_file: ./docker/.env
     environment:
       POSTGRES_HOST_AUTH_METHOD: md5
