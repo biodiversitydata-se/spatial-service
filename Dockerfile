@@ -8,7 +8,7 @@ RUN mkdir -p  \
 
 COPY build/libs/spatial-service-*.war $CATALINA_HOME/webapps/ws.war
 
-ENV DOCKERIZE_VERSION v0.7.0
+ENV DOCKERIZE_VERSION v0.9.2
 
 RUN apt-get update \
     && apt-get install -y wget \
