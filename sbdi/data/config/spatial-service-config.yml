@@ -208,8 +208,13 @@ security:
     disableCAS: false
     gateway: false
   apikey:
+    enabled: true
+    auth:
+      serviceUrl: https://auth.biodiversitydata.se/apikey/
     check:
-      serviceUrl: "https://auth.biodiversitydata.se/apikey/ws/check?apikey={0}"
+      serviceUrl: https://auth.biodiversitydata.se/apikey/ws/check?apikey=
+    userdetails:
+      serviceUrl: https://auth.biodiversitydata.se/apikey/userdetails/
 
   oidc:
     enabled: true
