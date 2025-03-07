@@ -5,6 +5,8 @@ import com.opencsv.CSVReader
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
 import org.yaml.snakeyaml.util.UriEncoder
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 @Slf4j
 @CompileStatic
@@ -23,7 +25,7 @@ class OccurrenceData {
 
         //add to 'identified' sensitive list
         try {
-            CSVReader csv = new CSVReader(new StringReader(getSpecies(q + "&fq=" + UriEncoder.encode("-sensitive:[* TO *]"), bs)))
+            CSVReader csv = new CSVReader(new StringReader(getSpecies(q + "&fq=" + URLEncoder.encode("-sensitive:[* TO *]", StandardCharsets.UTF_8), bs)))
             List<String[]> fullSpeciesList = csv.readAll()
             csv.close()
             for (int i = 0; i < fullSpeciesList.size(); i++) {
@@ -35,7 +37,7 @@ class OccurrenceData {
 
         //remove sensitive records that will not be LSID matched
         try {
-            Records r = new Records(bs, q + "&fq=" + UriEncoder.encode("-sensitive:[* TO *]"), null, records_filename, null, facetName)
+            Records r = new Records(bs, q + "&fq=" + URLEncoder.encode("-sensitive:[* TO *]", StandardCharsets.UTF_8), null, records_filename, null, facetName)
 
             StringBuilder sb = null
             if (r.getRecordsSize() > 0) {
