@@ -12,8 +12,9 @@ RUN mkdir -p  \
     /data/spatial-data/modelling/aloc \
     /data/spatial-data/modelling/maxent
 
+
 # Download and install dependencies
-RUN apt-get update && apt-get install -y curl unzip && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl unzip gettext-base gdal-bin  && rm -rf /var/lib/apt/lists/*
 
 #https://nexus.ala.org.au/repository/releases/au/org/ala/spatial/ala-aloc/1.0/ala-aloc-1.0-distribution.jar
 
@@ -27,6 +28,13 @@ ADD maxent/maxent.zip /tmp/maxent.zip
 RUN unzip /tmp/maxent.zip -d /tmp/ && \
     mv /tmp/maxent/maxent.jar /data/spatial-data/modelling/maxent/maxent.jar && \
     rm -rf /tmp/maxent /tmp/maxent.zip
+
+RUN mkdir -p \
+  /data/ala/data/alaspatial \
+  /data/ala/runtime/output/maxent \
+  /data/ala/runtime/files \
+  /data/ala/runtime/output \
+  /data/ala/data/layers/analysis
 
 RUN chmod 755 /data/spatial-data/modelling/maxent/maxent.jar
 
