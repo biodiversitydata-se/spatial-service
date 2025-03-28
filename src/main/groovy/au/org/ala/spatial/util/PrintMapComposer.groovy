@@ -2,6 +2,8 @@ package au.org.ala.spatial.util
 
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
+import okhttp3.OkHttpClient
+import okhttp3.Request
 import org.apache.commons.io.FileUtils
 import org.yaml.snakeyaml.util.UriEncoder
 
@@ -11,6 +13,7 @@ import java.awt.image.BufferedImage
 import java.awt.image.RescaleOp
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
+import java.time.Duration
 import java.util.List
 import java.util.concurrent.Callable
 import java.util.concurrent.ConcurrentHashMap
@@ -53,6 +56,10 @@ class PrintMapComposer {
     String outlineLayerUrl
     String dataDir
     String googleApiKey
+    OkHttpClient httpClient = new OkHttpClient.Builder()
+            .connectTimeout(Duration.ofSeconds(5))
+            .readTimeout(Duration.ofSeconds(10))
+            .build()
 
     //uses MapComposer information
     PrintMapComposer(String geoserverUrl, String openstreetmapUrl, String outlineLayerUrl, String baseMap, List<String> mapLayers,
@@ -208,7 +215,7 @@ class PrintMapComposer {
 
         List fileCacheUrls = new ArrayList()
         for (Object o : list) {
-            fileCacheUrls.add(new FileCacheUrl((String) o))
+            fileCacheUrls.add(new FileCacheUrl((String) o, httpClient))
         }
 
         int NUMBER_OF_GET_IMAGE_THREADS = 1    //best not keep it at 4 unless updating code to 4 per site
@@ -650,10 +657,12 @@ class PrintMapComposer {
 
     class FileCacheUrl implements Callable<String> {
         final String url
+        final OkHttpClient httpClient
         Map map
 
-        FileCacheUrl(String url) {
+        FileCacheUrl(String url, OkHttpClient httpClient) {
             this.url = url
+            this.httpClient = httpClient
         }
 
         @Override
@@ -675,8 +684,17 @@ class PrintMapComposer {
                 }
 
                 try {
-                    //construct cache filename
-                    FileUtils.copyURLToFile(new URL(u), new File(cacheFilename))
+                    def request = new Request.Builder()
+                            .url(u)
+                            .header("User-Agent", "ALA Spatial-service")
+                            .build();
+                    def response = httpClient.newCall(request).execute()
+                    if (response.isSuccessful()) {
+                        FileUtils.copyInputStreamToFile(response.body().byteStream(), new File(cacheFilename))
+                    } else {
+                        response.close()
+                        throw new IOException("Status code: ${response.code()}")
+                    }
                 } catch (Exception e) {
                     log.error("failed to get image at url: " + u + ", or write to file failed for: " + getCacheFilename(url), e)
                 }
