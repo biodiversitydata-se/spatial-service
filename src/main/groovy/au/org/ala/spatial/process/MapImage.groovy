@@ -57,6 +57,7 @@ class MapImage extends SlaveProcess {
         def imageBytes = new PrintMapComposer(
                 spatialConfig.geoserver.url.toString(),
                 spatialConfig.openstreetmap.url.toString(),
+                spatialConfig.outlineLayerForExport,
                 baseMap,
                 mapLayers,
                 bbox,

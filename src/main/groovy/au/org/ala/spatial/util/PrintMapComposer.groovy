@@ -50,15 +50,17 @@ class PrintMapComposer {
     //private LayerUtilities layerUtilities;
     String geoserverUrl
     String openstreetmapUrl
+    String outlineLayerUrl
     String dataDir
     String googleApiKey
 
     //uses MapComposer information
-    PrintMapComposer(String geoserverUrl, String openstreetmapUrl, String baseMap, List<String> mapLayers,
+    PrintMapComposer(String geoserverUrl, String openstreetmapUrl, String outlineLayerUrl, String baseMap, List<String> mapLayers,
                      double[] bb, double[] extents, int[] windowSize, String comment, String outputType, int resolution,
                      String dataDir, String googleApiKey) {
         this.geoserverUrl = endUrl(geoserverUrl)
         this.openstreetmapUrl = endUrl(openstreetmapUrl)
+        this.outlineLayerUrl = outlineLayerUrl
         this.mapLayers = new ArrayList(mapLayers)
         this.baseMap = baseMap
         this.dataDir = dataDir
@@ -183,7 +185,9 @@ class PrintMapComposer {
         } else {
             //outline
             //world layer
-            String uri = geoserverUrl + "/wms/reflect?LAYERS=ALA:world&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image/png&SRS=EPSG:3857&DPI=" + dpi
+            String uri = outlineLayerUrl ?
+                    String.format(outlineLayerUrl, dpi) :
+                    geoserverUrl + "/wms/reflect?LAYERS=ALA:world&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image/png&SRS=EPSG:3857&DPI=" + dpi
             urls.addAll(drawUri(g, uri, 1, false, drawTiles))
         }
 
