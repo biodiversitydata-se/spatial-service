@@ -24,6 +24,7 @@ import au.org.ala.ws.service.WebService
 import grails.converters.JSON
 import grails.gorm.transactions.Transactional
 import org.apache.commons.lang3.StringUtils
+import org.grails.web.json.JSONArray
 
 import static au.org.ala.spatial.dto.ProcessSpecification.InputType.AREA
 import static au.org.ala.spatial.dto.ProcessSpecification.InputType.DOUBLE
@@ -148,6 +149,8 @@ class TasksService {
                 } else if (v instanceof Map && spec.input[k]?.type == ProcessSpecification.InputType.SPECIES) {
                     registerSpeciesQid(new SpeciesInput(v))
 
+                    inputs.add(new InputParameter(name: k, value: (v as JSON).toString(), task: task))
+                } else if (name == "MapImage" && v instanceof JSONArray) {
                     inputs.add(new InputParameter(name: k, value: (v as JSON).toString(), task: task))
                 } else {
                     inputs.add(new InputParameter(name: k, value: v, task: task))
