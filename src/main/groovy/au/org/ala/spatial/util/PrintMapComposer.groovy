@@ -199,9 +199,12 @@ class PrintMapComposer {
         }
 
         //wms layers
-        for (int i = mapLayers.size() - 1; i >= 0; i--) {
-            if (mapLayers.get(i) != null) {
-                urls.addAll(drawLayer(g, mapLayers.get(i), drawTiles))
+        for (def layerUrl in mapLayers) {
+            if (layerUrl != null) {
+                // This is a nasty quick-fix to work around failing map tile url:s.
+                // Unfortunately it's very hard to understand what the real problem is.
+                def layerUrlFix = layerUrl.replace("/geoserver/gwc/service/wms?", "/geoserver/ALA/wms?")
+                urls.addAll(drawLayer(g, layerUrlFix, drawTiles))
             }
         }
 
