@@ -52,8 +52,9 @@ ARG USER_NAME=ubuntu
 ARG USER_ID=1000
 ARG GROUP_ID=1000
 
-RUN groupadd -g ${GROUP_ID} ${USER_NAME} && \
-    useradd -u ${USER_ID} -g ${GROUP_ID} -m -d /home/${USER_NAME} -s /bin/bash ${USER_NAME} && \
+# Create non-root user and group if they don't exist
+RUN getent group ${USER_NAME} || groupadd -g ${GROUP_ID} ${USER_NAME} && \
+    id -u ${USER_NAME} || useradd -u ${USER_ID} -g ${GROUP_ID} -m -d /home/${USER_NAME} -s /bin/bash ${USER_NAME} && \
     chown -R ${USER_NAME}:${USER_NAME} /usr/local/tomcat /data
 
 # Switch to non-root user
