@@ -334,9 +334,9 @@ class PublishService {
                             callGeoserverDelete("/rest/workspaces/ALA/coveragestores/" + name)
                             //when the geoserver and spatial service are in the server, We can let Geoserver load the data via absolut path
                             if (spatialConfig.geoserver.spatialservice.colocated) {
-                                // Geoserver will use the tif file starting with 'file://', and no need to upload it
+                                // Geoserver will use the existing tif file, and no need to upload it
                                 String[] result = callGeoserver("PUT", "/rest/workspaces/ALA/coveragestores/" + name + "/external.geotiff?configure=first",
-                                        null, "file://" + geotiff.getPath())
+                                        null, geotiff.getPath())
                                 if (result[0] != "200" && result[0] != "201") {
                                     errors.put(String.valueOf(System.currentTimeMillis()), result[0] + ": " + result[1])
                                 }
@@ -353,7 +353,7 @@ class PublishService {
                                 // create the layer
                                 // NOTE: The lines above upload files to Geoserver already.
                                 callGeoserver("PUT", "/rest/workspaces/ALA/coveragestores/" + name + "/external.geotiff?configure=first",
-                                        null, "file://" + spatialConfig.geoserver.remote.geoserver_data_dir + "/data/" + name + ".tif")
+                                        null, spatialConfig.geoserver.remote.geoserver_data_dir + "/data/" + name + ".tif")
 
                                 // upload the prj file
                                 if (tmpPrj.exists()) {
@@ -401,9 +401,9 @@ class PublishService {
                     callGeoserverDelete("/rest/workspaces/ALA/datastores/" + name)
 
                     if (spatialConfig.geoserver.spatialservice.colocated) {
-                        // Geoserver refers the extern data path (starting with 'file://') if it is colocated
+                        // Geoserver refers the extern data path if it is colocated
                         String[] result = callGeoserver("PUT", "/rest/workspaces/ALA/datastores/" + name + "/external.shp",
-                                null, "file://" + shp.getPath())
+                                null, shp.getPath())
                         if ("201" != result[0]) {
                             errors.put(String.valueOf(System.currentTimeMillis()), 'failed to upload shp to geoserver: ' + shp.getPath())
                             log.error 'Failed to upload shp to geoserver: ' + shp.getPath() + ". Check geoserver logs for details"
