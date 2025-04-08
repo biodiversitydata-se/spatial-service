@@ -75,4 +75,22 @@ class Task {
 
         version false
     }
+
+    def beforeInsert() {
+        beforeInsertOrUpdate()
+    }
+
+    def beforeUpdate() {
+        beforeInsertOrUpdate()
+    }
+
+    private beforeInsertOrUpdate() {
+        def historyValueMaxLength = 255
+        for (item in history) {
+            if (item.value.length() > historyValueMaxLength) {
+                log.debug("Truncating history value: $item.value")
+                item.value = item.value.substring(0, historyValueMaxLength)
+            }
+        }
+    }
 }
