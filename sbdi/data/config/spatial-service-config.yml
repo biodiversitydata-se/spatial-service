@@ -272,3 +272,5 @@ openapi:
         baseUrl: https://auth.biodiversitydata.se/cas/oidc
 
 namematching.url: https://namematching.biodiversitydata.se
+
+outlineLayerForExport: https://spatial.ala.org.au/geoserver/wms/reflect?LAYERS=ALA:world&SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&STYLES=&FORMAT=image/png&SRS=EPSG:3857&DPI=%1$s

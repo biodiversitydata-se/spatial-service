@@ -217,5 +217,5 @@ class SpatialConfig {
 
     String biocacheUrl
 
-
+    String outlineLayerForExport
 }
