@@ -176,7 +176,7 @@ google:
 
 logging:
   level:
-    root: INFO
+    root: WARN
 
 #userdetails:
 #    baseUrl: "https://auth.biodiversitydata.se/userdetails/"
@@ -216,17 +216,12 @@ security:
     userdetails:
       serviceUrl: https://auth.biodiversitydata.se/apikey/userdetails/
 
+  # oidc related
   oidc:
     enabled: true
-    discoveryUri: https://auth.biodiversitydata.se/cas/oidc/.well-known
     clientId: replace_with_real_value
     secret: replace_with_real_value
-    allowUnsignedIdTokens: true
-    scope: 'openid profile email ala/attrs ala/roles'
-    roleAttribute: ala:role
-    logoutAction:
-    alaUseridClaim: username
-    logoutUrl:
+    discoveryUri: https://auth.biodiversitydata.se/cas/oidc/.well-known
   jwt:
     enabled: false
     #discoveryUri:
@@ -272,3 +267,14 @@ openapi:
         baseUrl: https://auth.biodiversitydata.se/cas/oidc
 
 namematching.url: https://namematching.biodiversitydata.se
+
+# Internal sandbox service for processing uploaded CSV files
+sandboxEnabled: false
+sandboxSolrUrl:
+sandboxSolrCollection: sandbox
+sandboxThreadCount: 2
+pipelinesCmd:
+  pipelinesConfig
+
+# For the copying of layers between spatial-service instances, a JWT with the following role must be provided in the `/manageLayers/remote` page.
+layerCopyRole: ROLE_ADMIN
