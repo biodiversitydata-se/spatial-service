@@ -40,7 +40,7 @@ RUN chmod 755 /data/spatial-data/modelling/maxent/maxent.jar
 
 COPY build/libs/spatial-service-*.war $CATALINA_HOME/webapps/ws.war
 
-ENV DOCKERIZE_VERSION=v0.9.2
+ENV DOCKERIZE_VERSION=v0.9.6
 
 RUN apt-get update \
     && apt-get install -y wget \
