@@ -4,9 +4,8 @@ import au.org.ala.spatial.Util
 import com.opencsv.CSVReader
 import groovy.transform.CompileStatic
 import groovy.util.logging.Slf4j
-import org.yaml.snakeyaml.util.UriEncoder
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
+
+import java.nio.charset.StandardCharsets
 
 @Slf4j
 @CompileStatic
