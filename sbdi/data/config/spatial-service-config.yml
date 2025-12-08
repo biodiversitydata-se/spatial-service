@@ -61,7 +61,7 @@ auth.admin_role: ROLE_ADMIN
 app.http.header.userId: X-ALA-userId
 
 headerAndFooter:
-  baseURL: "https://static.biodiversitydata.se"
+  baseURL: "https://bioatlas.biodiversitydata.se"
   version: "2"
 
 ala.baseURL: https://biodiversitydata.se
@@ -164,8 +164,8 @@ skin.layout: main
 skin.fluidLayout: false
 skin.orgNameLong: Swedish Biodiversity Data Infrastructure
 skin.orgNameShort: SBDI
-skin.favicon: https://static.biodiversitydata.se/favicon.ico
-skin.homeUrl: https://tools.biodiversitydata.se
+skin.favicon: https://bioatlas.biodiversitydata.se/favicon.ico
+skin.homeUrl: https://bioatlas.biodiversitydata.se
 
 grails.controllers.upload.maxFileSize: 2097152000
 grails.controllers.upload.maxRequestSize: 2097152000
