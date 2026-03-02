@@ -541,7 +541,11 @@ class LayerController {
             }
         }
 
-        render(view: "show.gsp", model: [layer: l, field: f, downloadAllowed: downloadAllowed(l)])
+        if (l) {
+            render(view: "show.gsp", model: [layer: l, field: f, downloadAllowed: downloadAllowed(l)])
+        } else {
+            render(status: 404, text: "404 Not Found")
+        }
     }
 
     @Operation(
